@@ -1,6 +1,6 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
-const commonPaths = require('./paths');
+const commonPaths = require('./paths')
 
 module.exports = {
   mode: 'development',
@@ -12,31 +12,10 @@ module.exports = {
   resolve: {
     alias: {'react-dom': '@hot-loader/react-dom'}
   },
-  module: {
-    rules: [
-      {
-        test: /\.(css|less)$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              localsConvention: 'camelCase',
-              modules: {
-                localIdentName: '[local]___[hash:base64:5]',
-              },
-            },
-          },
-          'less-loader',
-        ],
-      },
-    ],
-  },
   devServer: {
     contentBase: commonPaths.outputPath,
     compress: true,
     hot: true,
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
-};
+}

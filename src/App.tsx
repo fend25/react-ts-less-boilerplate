@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {hot} from 'react-hot-loader/root';
-import HelloWorld from './components/hello-world';
+import React, {Component} from 'react'
+import {hot} from 'react-hot-loader/root'
+import HelloWorld from './components/hello-world'
 
 class App extends Component<any, {input: string}> {
   constructor(props: any) {
-    super(props);
+    super(props)
     this.state = {
       input: ''
-    };
+    }
   }
 
   render() {
@@ -22,4 +22,4 @@ class App extends Component<any, {input: string}> {
   }
 }
 
-export default hot(App);
+export default hot(App)

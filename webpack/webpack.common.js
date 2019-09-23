@@ -1,70 +1,85 @@
-const webpack = require('webpack');
-const convert = require('koa-connect');
-const history = require('connect-history-api-fallback');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const { CheckerPlugin } = require('awesome-typescript-loader')
-const commonPaths = require('./paths');
+const webpack = require('webpack')
+const convert = require('koa-connect')
+const history = require('connect-history-api-fallback')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const {CheckerPlugin} = require('awesome-typescript-loader')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const paths = require('./paths')
 
-module.exports = {
-  entry: commonPaths.entryPath,
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules)/,
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: commonPaths.imagesFolder,
+module.exports = (isProduction) => {
+  return {
+    entry: paths.entryPath,
+    module: {
+      rules: [
+        {
+          test: /\.[jt]sx?$/,
+          loader: 'awesome-typescript-loader'
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif|svg)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                outputPath: paths.imagesFolder,
+              },
             },
-          },
-        ],
-      },
-      {
-        test: /\.(woff2|ttf|woff|eot)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: commonPaths.fontsFolder,
+          ],
+        },
+        {
+          test: /\.(woff2|ttf|woff|eot)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                outputPath: paths.fontsFolder,
+              },
             },
-          },
-        ],
+          ],
+        },
+        {
+          test: /\.(css|less)$/,
+          use: [
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: false,
+                modules: {
+                  localIdentName: '[local]',
+                },
+              },
+            },
+            'less-loader',
+          ],
+        },
+      ],
+    },
+    serve: {
+      add: app => {
+        app.use(convert(history()))
       },
+      content: paths.entryPath,
+      dev: {
+        publicPath: paths.outputPath,
+      },
+      open: true,
+    },
+    resolve: {
+      alias: {src: paths.src},
+      modules: ['src', 'node_modules'],
+      extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.css', '.less'],
+    },
+    plugins: [
+      new CheckerPlugin(),
+      new webpack.ProgressPlugin(),
+      new HtmlWebpackPlugin({
+        template: paths.templatePath,
+      }),
+      new ScriptExtHtmlWebpackPlugin({
+        defaultAttribute: 'async',
+      }),
     ],
-  },
-  serve: {
-    add: app => {
-      app.use(convert(history()));
-    },
-    content: commonPaths.entryPath,
-    dev: {
-      publicPath: commonPaths.outputPath,
-    },
-    open: true,
-  },
-  resolve: {
-    modules: ['src', 'node_modules'],
-    extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.css', '.less'],
-  },
-  plugins: [
-    new CheckerPlugin(),
-    new webpack.ProgressPlugin(),
-    new HtmlWebpackPlugin({
-      template: commonPaths.templatePath,
-    }),
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'async',
-    }),
-  ],
-};
+  }
+}
