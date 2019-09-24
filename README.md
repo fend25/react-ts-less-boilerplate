@@ -68,7 +68,6 @@ Because there are too much ways and approaches and this is a minimal _react_ boi
  - bundle analyzing included
  - ready example of work with images and fonts (provided font and image weight just 10Kb)
  - ready example of tests
- - 
  - polyfills are included (core-js/stable)
  - regenerator runtime is not needed because typescript compiles async-await itself 
  - neat config without spaghetti
