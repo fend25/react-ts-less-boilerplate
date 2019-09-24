@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './hello-world.less'
+import style from './HelloWorld.less'
 
 const HelloWorld = ({ title }: {title: string}) => (
   <div className={style.helloWorld}>

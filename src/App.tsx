@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {hot} from 'react-hot-loader/root'
-import HelloWorld from './components/hello-world'
+import {HelloWorld} from './components'
 
 class App extends Component<any, {input: string}> {
   constructor(props: any) {

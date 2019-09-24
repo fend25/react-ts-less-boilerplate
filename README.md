@@ -57,6 +57,7 @@ All styles preprocessing config is condensed in one place in `webpack/webpack.co
  - PostCSS and Autoprefixer
  - routing
  - store and data management
+ - linting
  
 Because there are too much ways and approaches and this is a minimal _react_ boilerplate.    
 
@@ -65,6 +66,9 @@ Because there are too much ways and approaches and this is a minimal _react_ boi
  - in dev mode: full HMR and modern approach  
  - in build mode: optimized build 
  - bundle analyzing included
+ - ready example of work with images and fonts (provided font and image weight just 10Kb)
+ - ready example of tests
+ - 
  - polyfills are included (core-js/stable)
  - regenerator runtime is not needed because typescript compiles async-await itself 
  - neat config without spaghetti
