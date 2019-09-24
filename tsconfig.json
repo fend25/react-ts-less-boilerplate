@@ -17,10 +17,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
-    "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
     "strict": true,
-    "target": "esnext",
+    "target": "es5",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -30,7 +29,7 @@
     "node_modules"
   ],
   "include": [
-    "typings/styles.d.ts",
+    "typings",
     "**/*.ts",
     "**/*.tsx"
   ]

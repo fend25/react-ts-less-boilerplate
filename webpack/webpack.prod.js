@@ -1,19 +1,19 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const commonPaths = require('./paths')
-
-
+const paths = require('./paths')
 
 const plugins = [
   new CleanWebpackPlugin(),
   new MiniCssExtractPlugin({
-    filename: `${commonPaths.cssFolder}/[name].css`,
-    chunkFilename: `${commonPaths.cssFolder}/[name].css`,
+    filename: `${paths.cssFolder}/[name].css`,
+    chunkFilename: `${paths.cssFolder}/[name].css`,
   }),
+  new CopyWebpackPlugin(['assets'])
 ]
 
 if (process.env.ANALYZE === 'true') {
@@ -23,9 +23,9 @@ if (process.env.ANALYZE === 'true') {
 module.exports = {
   mode: 'production',
   output: {
-    filename: `${commonPaths.jsFolder}/[name].[hash].js`,
-    path: commonPaths.outputPath,
-    chunkFilename: `${commonPaths.jsFolder}/[name].[chunkhash].js`,
+    filename: `${paths.jsFolder}/[name].[hash].js`,
+    path: paths.outputPath,
+    chunkFilename: `${paths.jsFolder}/[name].[chunkhash].js`,
   },
   optimization: {
     minimizer: [

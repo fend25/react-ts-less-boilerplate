@@ -14,29 +14,8 @@ module.exports = (isProduction) => {
       rules: [
         {
           test: /\.[jt]sx?$/,
-          loader: 'awesome-typescript-loader'
-        },
-        {
-          test: /\.(png|jpg|jpeg|gif|svg)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                outputPath: paths.imagesFolder,
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(woff2|ttf|woff|eot)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                outputPath: paths.fontsFolder,
-              },
-            },
-          ],
+          loader: 'awesome-typescript-loader',
+          exclude: /node_modules/,
         },
         {
           test: /\.(css|less)$/,
@@ -80,6 +59,13 @@ module.exports = (isProduction) => {
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'async',
       }),
+      new webpack.EnvironmentPlugin({
+        NODE_ENV: 'development',
+        DEBUG: false,
+        isDebug: typeof process.env.DEBUG !== 'undefined',
+        isProd: isProduction,
+        isDev: !isProduction
+      })
     ],
   }
 }
