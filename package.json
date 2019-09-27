@@ -27,13 +27,13 @@
       "<rootDir>/setupTests.js"
     ],
     "moduleFileExtensions": [
-      "css",
-      "less",
-      "json",
+      "ts",
+      "tsx",
       "js",
       "jsx",
-      "ts",
-      "tsx"
+      "json",
+      "less",
+      "css"
     ]
   },
   "license": "See license in License",
